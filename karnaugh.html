@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mappe di Karnaugh - Telecomunicazioni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Telecomunicazioni</h1>
+            <ul class="flex space-x-6 items-center">
+                <li>
+                    <button id="language-switcher" class="flex items-center space-x-1 hover:text-blue-200">
+                        <i class="fas fa-language"></i>
+                        <span>IT</span>
+                    </button>
+                </li>
+                <li><a href="index.html" class="hover:text-blue-200"><i class="fas fa-home mr-1"></i>Home</a></li>
+                <li><a href="ohms-law.html" class="hover:text-blue-200"><i class="fas fa-bolt mr-1"></i>Legge di Ohm</a></li>
+                <li><a href="kirchhoffs-laws.html" class="hover:text-blue-200"><i class="fas fa-project-diagram mr-1"></i>Leggi di Kirchhoff</a></li>
+                <li><a href="superposition.html" class="hover:text-blue-200"><i class="fas fa-layer-group mr-1"></i>Principio di Sovrapposizione</a></li>
+                <li><a href="karnaugh.html" class="text-blue-300"><i class="fas fa-table mr-1"></i>Mappe di Karnaugh</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-8 px-4">
+        <h1 class="text-3xl font-bold mb-6 text-center">Mappe di Karnaugh</h1>
+        
+        <!-- Introduction Section -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Definizione</h2>
+            <p class="mb-4">Le mappe di Karnaugh sono un metodo grafico per semplificare espressioni booleane, particolarmente utile per funzioni con 2-4 variabili.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Vantaggi</h3>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>Visualizzazione immediata delle semplificazioni</li>
+                        <li>Identificazione di termini ridondanti</li>
+                        <li>Minimizzazione del numero di porte logiche</li>
+                        <li>Particolarmente utile per circuiti digitali</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Regole Base</h3>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Raggruppare celle adiacenti con valore 1</li>
+                        <li>I gruppi devono essere di dimensione 2<sup>n</sup></li>
+                        <li>Massimizzare la dimensione dei gruppi</li>
+                        <li>Minimizzare il numero di gruppi</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 2-Variable Example -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Mappa a 2 Variabili</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- K-Map Diagram -->
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Struttura</h3>
+                    <div class="diagram-container mb-4">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr>
+                                    <th class="border p-2"></th>
+                                    <th class="border p-2 bg-gray-100">A'</th>
+                                    <th class="border p-2 bg-gray-100">A</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border p-2 bg-gray-100">B'</td>
+                                    <td class="border p-2 text-center">0</td>
+                                    <td class="border p-2 text-center">1</td>
+                                </tr>
+                                <tr>
+                                    <td class="border p-2 bg-gray-100">B</td>
+                                    <td class="border p-2 text-center">1</td>
+                                    <td class="border p-2 text-center">1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Simplification -->
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Semplificazione</h3>
+                    <p class="mb-2">Dalla mappa si identificano due gruppi:</p>
+                    <div class="code-block mb-4">
+                        Gruppo 1: A'B (cella in basso a sinistra)<br>
+                        Gruppo 2: AB' + AB = A (colonna destra)
+                    </div>
+                    <p class="mb-2">Espressione semplificata:</p>
+                    <div class="code-block">
+                        F = A + B
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 3-Variable Example -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Mappa a 3 Variabili</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- K-Map Diagram -->
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Struttura</h3>
+                    <div class="diagram-container mb-4">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr>
+                                    <th class="border p-2"></th>
+                                    <th class="border p-2 bg-gray-100">A'B'</th>
+                                    <th class="border p-2 bg-gray-100">A'B</th>
+                                    <th class="border p-2 bg-gray-100">AB</th>
+                                    <th class="border p-2 bg-gray-100">AB'</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border p-2 bg-gray-100">C'</td>
+                                    <td class="border p-2 text-center">1</td>
+                                    <td class="border p-2 text-center">0</td>
+                                    <td class="border p-2 text-center">1</td>
+                                    <td class="border p-2 text-center">0</td>
+                                </tr>
+                                <tr>
+                                    <td class="border p-2 bg-gray-100">C</td>
+                                    <td class="border p-2 text-center">1</td>
+                                    <td class="border p-2 text-center">0</td>
+                                    <td class="border p-2 text-center">1</td>
+                                    <td class="border p-2 text-center">1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Simplification -->
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Semplificazione</h3>
+                    <p class="mb-2">Identifichiamo tre gruppi:</p>
+                    <div class="code-block mb-4">
+                        Gruppo 1: A'B'C' + A'B'C = A'B' (colonna 1)<br>
+                        Gruppo 2: ABC' + ABC = AB (cella centrale destra)<br>
+                        Gruppo 3: AB'C (cella in basso a destra)
+                    </div>
+                    <p class="mb-2">Espressione semplificata:</p>
+                    <div class="code-block">
+                        F = A'B' + AB + AB'C
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Practice Problems -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Problemi Pratici</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Problem 1 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h3 class="text-lg font-medium mb-2">Problema 1: 2 Variabili</h3>
+                    <p class="mb-3">Data la seguente tabella di verità:</p>
+                    <div class="code-block mb-4">
+                        A B | F<br>
+                        ----|---<br>
+                        0 0 | 1<br>
+                        0 1 | 0<br>
+                        1 0 | 1<br>
+                        1 1 | 1
+                    </div>
+                    <button onclick="showSolution('solution1')" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                        Mostra Soluzione
+                    </button>
+                    <div id="solution1" class="hidden mt-3 code-block">
+                        F = A + B'
+                    </div>
+                </div>
+                
+                <!-- Problem 2 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h3 class="text-lg font-medium mb-2">Problema 2: 3 Variabili</h3>
+                    <p class="mb-3">Data la seguente tabella di verità:</p>
+                    <div class="code-block mb-4">
+                        A B C | F<br>
+                        ------|---<br>
+                        0 0 0 | 1<br>
+                        0 0 1 | 0<br>
+                        0 1 0 | 1<br>
+                        0 1 1 | 0<br>
+                        1 0 0 | 1<br>
+                        1 0 1 | 1<br>
+                        1 1 0 | 0<br>
+                        1 1 1 | 1
+                    </div>
+                    <button onclick="showSolution('solution2')" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                        Mostra Soluzione
+                    </button>
+                    <div id="solution2" class="hidden mt-3 code-block">
+                        F = A'B'C' + A'BC' + AB'C' + AB'C + ABC
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Telecom Applications -->
+        <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Applicazioni nelle Telecomunicazioni</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Progettazione Circuiti Digitali</h3>
+                    <p>Utilizzate per ottimizzare circuiti logici in dispositivi di comunicazione digitale.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Sistemi di Codifica</h3>
+                    <p>Applicate nella progettazione di codificatori e decodificatori per la trasmissione dati.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Controllo di Rete</h3>
+                    <p>Utili per semplificare la logica di controllo nei router e switch di rete.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Sistemi di Sicurezza</h3>
+                    <p>Impiegate nella progettazione di circuiti di autenticazione e controllo accessi.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Karnaugh Map Generator Section -->
+    <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Generatore di Mappe di Karnaugh</h2>
+        <div class="space-y-4">
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Inserisci i valori della tabella di verità (0 e 1 separati da virgola, 8-16 valori):</span>
+                </label>
+                <input type="text" placeholder="Es: 0,1,1,0,1,0,0,1" class="input input-bordered w-full max-w-md" id="truthInput">
+                <div id="inputError" class="text-red-500 mt-1 hidden"></div>
+            </div>
+
+            <div class="flex gap-2">
+                <button onclick="generateKMap()" class="btn btn-primary">Genera Mappa</button>
+                <button onclick="clearInput()" class="btn btn-ghost">Pulisci</button>
+            </div>
+
+            <div id="kmapContainer" class="mt-6 hidden">
+                <h3 class="text-xl font-semibold mb-2">Mappa di Karnaugh:</h3>
+                <div id="kmapTable" class="overflow-x-auto"></div>
+                
+                <div class="mt-6">
+                    <h3 class="text-xl font-semibold mb-2">Espressione Semplificata:</h3>
+                    <div id="simplifiedExpr" class="p-4 bg-gray-100 rounded-lg font-mono"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto text-center">
+            <p>© 2025 Telecommunications site Provaroni</p>
+            <p class="mt-2 text-gray-400">Sito creato per scopi didattici</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSolution(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('hidden');
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

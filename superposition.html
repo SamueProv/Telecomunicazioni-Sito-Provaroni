@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principio di Sovrapposizione - Telecomunicazioni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Telecomunicazioni</h1>
+            <ul class="flex space-x-6 items-center">
+                <li>
+                    <button id="language-switcher" class="flex items-center space-x-1 hover:text-blue-200">
+                        <i class="fas fa-language"></i>
+                        <span>IT</span>
+                    </button>
+                </li>
+                <li><a href="index.html" class="hover:text-blue-200"><i class="fas fa-home mr-1"></i>Home</a></li>
+                <li><a href="ohms-law.html" class="hover:text-blue-200"><i class="fas fa-bolt mr-1"></i>Legge di Ohm</a></li>
+                <li><a href="kirchhoffs-laws.html" class="hover:text-blue-200"><i class="fas fa-project-diagram mr-1"></i>Leggi di Kirchhoff</a></li>
+                <li><a href="superposition.html" class="text-blue-300"><i class="fas fa-layer-group mr-1"></i>Principio di Sovrapposizione</a></li>
+                <li><a href="karnaugh.html" class="hover:text-blue-200"><i class="fas fa-table mr-1"></i>Mappe di Karnaugh</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-8 px-4">
+        <h1 class="text-3xl font-bold mb-6 text-center">Principio di Sovrapposizione</h1>
+        
+        <!-- Theory Section -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Definizione</h2>
+            <p class="mb-4">In un circuito lineare con più sorgenti indipendenti, la risposta (tensione o corrente) in qualsiasi parte del circuito è uguale alla somma algebrica delle risposte causate da ciascuna sorgente agente indipendentemente.</p>
+            
+            <div class="code-block mb-6">
+                V<sub>totale</sub> = V<sub>1</sub> + V<sub>2</sub> + V<sub>3</sub>
+            </div>
+            
+            <p class="mb-4"><strong>Procedura per 3 sorgenti:</strong></p>
+            <ol class="list-decimal pl-6 space-y-2 mb-6">
+                <li>Spegnere tutte le sorgenti tranne una (sostituire le sorgenti di tensione con cortocircuiti e le sorgenti di corrente con circuiti aperti)</li>
+                <li>Calcolare la risposta del circuito per la sorgente attiva</li>
+                <li>Ripetere i passi 1-2 per ciascuna sorgente</li>
+                <li>Sommare algebricamente tutte le risposte parziali</li>
+            </ol>
+        </section>
+        
+        <!-- Example with 3 Sources -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Esempio con 3 Sorgenti</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Original Circuit -->
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Circuito Originale</h3>
+                    <div class="diagram-container mb-4">
+                        <img src="https://images.pexels.com/photos/3568518/pexels-photo-3568518.jpeg" alt="Original circuit with 3 sources" class="w-full rounded-lg">
+                        <p class="text-center mt-2 text-sm text-gray-600">Circuito con 3 sorgenti indipendenti</p>
+                    </div>
+                    <p class="mb-2">Dati:</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>V<sub>1</sub> = 12V</li>
+                        <li>V<sub>2</sub> = 9V</li>
+                        <li>I<sub>1</sub> = 2A</li>
+                        <li>R<sub>1</sub> = 4Ω</li>
+                        <li>R<sub>2</sub> = 6Ω</li>
+                    </ul>
+                </div>
+                
+                <!-- Step-by-Step Analysis -->
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Analisi Passo-Passo</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-medium mb-1">1. Solo V<sub>1</sub> attiva</h4>
+                        <p class="text-sm text-gray-600 mb-1">(V<sub>2</sub> cortocircuitata, I<sub>1</sub> aperta)</p>
+                        <p class="code-block">V'<sub>R2</sub> = 12V × (6Ω)/(4Ω+6Ω) = 7.2V</p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-medium mb-1">2. Solo V<sub>2</sub> attiva</h4>
+                        <p class="text-sm text-gray-600 mb-1">(V<sub>1</sub> cortocircuitata, I<sub>1</sub> aperta)</p>
+                        <p class="code-block">V''<sub>R2</sub> = 9V × (4Ω)/(4Ω+6Ω) = 3.6V</p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-medium mb-1">3. Solo I<sub>1</sub> attiva</h4>
+                        <p class="text-sm text-gray-600 mb-1">(V<sub>1</sub> e V<sub>2</sub> cortocircuitate)</p>
+                        <p class="code-block">V'''<sub>R2</sub> = 2A × (4Ω∥6Ω) = 2A × 2.4Ω = 4.8V</p>
+                    </div>
+                    
+                    <div class="mt-4 p-3 bg-blue-50 rounded-md">
+                        <h4 class="font-medium text-blue-800">Risultato Finale:</h4>
+                        <p class="code-block">V<sub>R2</sub> = 7.2V + 3.6V + 4.8V = 15.6V</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Practice Problems -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Problemi Pratici</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Problem 1 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h3 class="text-lg font-medium mb-2">Problema 1: Due Sorgenti di Tensione</h3>
+                    <p class="mb-3">Circuito con:</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>V<sub>1</sub> = 10V, V<sub>2</sub> = 5V</li>
+                        <li>R<sub>1</sub> = 2Ω, R<sub>2</sub> = 3Ω</li>
+                    </ul>
+                    <button onclick="showSolution('solution1')" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                        Mostra Soluzione
+                    </button>
+                    <div id="solution1" class="hidden mt-3 code-block">
+                        V' = 10V × 3Ω/5Ω = 6V<br>
+                        V'' = 5V × 2Ω/5Ω = 2V<br>
+                        V<sub>R2</sub> = 6V + 2V = 8V
+                    </div>
+                </div>
+                
+                <!-- Problem 2 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h3 class="text-lg font-medium mb-2">Problema 2: Tensione e Corrente</h3>
+                    <p class="mb-3">Circuito con:</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>V<sub>1</sub> = 12V, I<sub>1</sub> = 3A</li>
+                        <li>R<sub>1</sub> = 4Ω, R<sub>2</sub> = 4Ω</li>
+                    </ul>
+                    <button onclick="showSolution('solution2')" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                        Mostra Soluzione
+                    </button>
+                    <div id="solution2" class="hidden mt-3 code-block">
+                        V' = 12V × 4Ω/8Ω = 6V<br>
+                        V'' = 3A × (4Ω∥4Ω) = 6V<br>
+                        V<sub>R2</sub> = 6V + 6V = 12V
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Telecom Applications -->
+        <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Applicazioni nelle Telecomunicazioni</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Analisi di Circuiti RF</h3>
+                    <p>Utilizzato per analizzare circuiti a radiofrequenza con molteplici sorgenti di segnale.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Progettazione di Amplificatori</h3>
+                    <p>Aiuta a separare i contributi di diverse sorgenti in stadi amplificatori complessi.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Sistemi di Potenza</h3>
+                    <p>Applicato nell'analisi di sistemi di alimentazione con molteplici generatori.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Analisi di Interferenze</h3>
+                    <p>Permette di valutare separatamente i contributi di diverse sorgenti di interferenza.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto text-center">
+            <p>© 2025 Telecommunications site Provaroni</p>
+            <p class="mt-2 text-gray-400">Sito creato per scopi didattici</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSolution(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('hidden');
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

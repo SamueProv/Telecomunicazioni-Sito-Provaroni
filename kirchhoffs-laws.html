@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leggi di Kirchhoff - Telecomunicazioni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Telecomunicazioni</h1>
+            <ul class="flex space-x-6 items-center">
+                <li>
+                    <button id="language-switcher" class="flex items-center space-x-1 hover:text-blue-200">
+                        <i class="fas fa-language"></i>
+                        <span>IT</span>
+                    </button>
+                </li>
+                <li><a href="index.html" class="hover:text-blue-200"><i class="fas fa-home mr-1"></i>Home</a></li>
+                <li><a href="ohms-law.html" class="hover:text-blue-200"><i class="fas fa-bolt mr-1"></i>Legge di Ohm</a></li>
+                <li><a href="kirchhoffs-laws.html" class="text-blue-300"><i class="fas fa-project-diagram mr-1"></i>Leggi di Kirchhoff</a></li>
+                <li><a href="superposition.html" class="hover:text-blue-200"><i class="fas fa-layer-group mr-1"></i>Principio di Sovrapposizione</a></li>
+                <li><a href="karnaugh.html" class="hover:text-blue-200"><i class="fas fa-table mr-1"></i>Mappe di Karnaugh</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-8 px-4">
+        <h1 class="text-3xl font-bold mb-6 text-center">Leggi di Kirchhoff</h1>
+        
+        <!-- Kirchhoff's Current Law Section -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Legge delle Correnti (KCL)</h2>
+            <p class="mb-4">La somma algebrica delle correnti entranti e uscenti da un nodo è uguale a zero:</p>
+            
+            <div class="code-block mb-6">
+                Σ I<sub>entranti</sub> = Σ I<sub>uscenti</sub>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Esempio Circuito</h3>
+                    <div class="diagram-container mb-4">
+                        <img src="https://images.pexels.com/photos/162622/wire-cable-energy-electricity-162622.jpeg" alt="KCL diagram" class="w-full rounded-lg">
+                        <p class="text-center mt-2 text-sm text-gray-600">Nodo con correnti entranti e uscenti</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Applicazione</h3>
+                    <p class="mb-2">In un nodo con tre correnti:</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>I<sub>1</sub> = 2A (entrante)</li>
+                        <li>I<sub>2</sub> = 1A (uscente)</li>
+                        <li>I<sub>3</sub> = ?</li>
+                    </ul>
+                    <p class="code-block">2A = 1A + I<sub>3</sub> ⇒ I<sub>3</sub> = 1A (uscente)</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Kirchhoff's Voltage Law Section -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Legge delle Tensioni (KVL)</h2>
+            <p class="mb-4">La somma algebrica delle tensioni in una maglia chiusa è uguale a zero:</p>
+            
+            <div class="code-block mb-6">
+                Σ V = 0
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Esempio Circuito</h3>
+                    <div class="diagram-container mb-4">
+                        <img src="https://images.pexels.com/photos/159304/network-cable-ethernet-computer-159304.jpeg" alt="KVL diagram" class="w-full rounded-lg">
+                        <p class="text-center mt-2 text-sm text-gray-600">Maglia con tensioni</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Applicazione</h3>
+                    <p class="mb-2">In una maglia con tre componenti:</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>V<sub>1</sub> = 12V (batteria)</li>
+                        <li>V<sub>2</sub> = 5V (resistore 1)</li>
+                        <li>V<sub>3</sub> = ? (resistore 2)</li>
+                    </ul>
+                    <p class="code-block">12V - 5V - V<sub>3</sub> = 0 ⇒ V<sub>3</sub> = 7V</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- KCL Calculator Section -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Calcolatore KCL (Kirchhoff's Current Law)</h2>
+            <div class="space-y-4">
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Numero di correnti entranti/uscenti:</span>
+                    </label>
+                    <input type="number" min="2" max="10" value="3" class="input input-bordered w-full max-w-xs" id="kcl-current-count">
+                </div>
+
+                <div id="kcl-inputs" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Dynamic inputs will be inserted here -->
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="calculateKCL()" class="btn btn-primary">Calcola</button>
+                    <button onclick="resetKCL()" class="btn btn-ghost">Reset</button>
+                </div>
+
+                <div id="kcl-result" class="mt-4 hidden">
+                    <h3 class="text-xl font-medium mb-2">Risultato:</h3>
+                    <div class="p-4 bg-gray-100 rounded-lg font-mono"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KVL Calculator Section -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Calcolatore KVL (Kirchhoff's Voltage Law)</h2>
+            <div class="space-y-4">
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Numero di elementi nella maglia:</span>
+                    </label>
+                    <input type="number" min="2" max="10" value="3" class="input input-bordered w-full max-w-xs" id="kvl-element-count">
+                </div>
+
+                <div id="kvl-inputs" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Dynamic inputs will be inserted here -->
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="calculateKVL()" class="btn btn-primary">Calcola</button>
+                    <button onclick="resetKVL()" class="btn btn-ghost">Reset</button>
+                </div>
+
+                <div id="kvl-result" class="mt-4 hidden">
+                    <h3 class="text-xl font-medium mb-2">Risultato:</h3>
+                    <div class="p-4 bg-gray-100 rounded-lg font-mono"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practice Problems Section -->
+        <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Problemi Pratici</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Problem 1 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h3 class="text-lg font-medium mb-2">Problema 1: Analisi Nodale</h3>
+                    <p class="mb-3">Dato il circuito con tre correnti in un nodo:</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>I<sub>1</sub> = 3A (entrante)</li>
+                        <li>I<sub>2</sub> = 1.5A (uscente)</li>
+                        <li>I<sub>3</sub> = ?</li>
+                    </ul>
+                    <button onclick="showSolution('solution1')" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                        Mostra Soluzione
+                    </button>
+                    <div id="solution1" class="hidden mt-3 code-block">
+                        KCL: 3A = 1.5A + I<sub>3</sub><br>
+                        I<sub>3</sub> = 1.5A (uscente)
+                    </div>
+                </div>
+                
+                <!-- Problem 2 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h3 class="text-lg font-medium mb-2">Problema 2: Analisi di Maglia</h3>
+                    <p class="mb-3">Dato il circuito con:</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>V<sub>battery</sub> = 9V</li>
+                        <li>V<sub>R1</sub> = 3V</li>
+                        <li>V<sub>R2</sub> = ?</li>
+                    </ul>
+                    <button onclick="showSolution('solution2')" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                        Mostra Soluzione
+                    </button>
+                    <div id="solution2" class="hidden mt-3 code-block">
+                        KVL: 9V - 3V - V<sub>R2</sub> = 0<br>
+                        V<sub>R2</sub> = 6V
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Telecom Applications Section -->
+        <section class="mt-8 bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Applicazioni nelle Telecomunicazioni</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Analisi di Reti Complesse</h3>
+                    <p>Le leggi di Kirchhoff sono fondamentali per analizzare reti di telecomunicazione con molti nodi e percorsi.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Progettazione Circuiti RF</h3>
+                    <p>Utilizzate nella progettazione di circuiti a radiofrequenza per dispositivi di comunicazione.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Distribuzione di Potenza</h3>
+                    <p>Aiutano a calcolare la distribuzione ottimale di potenza nelle stazioni base e nei data center.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Troubleshooting</h3>
+                    <p>Strumento essenziale per identificare problemi in circuiti di telecomunicazione complessi.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto text-center">
+            <p>© 2025 Telecommunications site Provaroni</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSolution(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('hidden');
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
