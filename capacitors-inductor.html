@@ -105,6 +105,90 @@
         </section>
     </main>
 
+    <!-- Calculator Section -->
+    <section class="bg-white p-6 rounded-lg shadow-md mt-8">
+        <h2 class="text-2xl font-semibold mb-6 text-center">Calculators</h2>
+        
+        <div class="flex border-b mb-6 overflow-x-auto">
+            <button class="tab-button active px-4 py-2 font-medium whitespace-nowrap" data-tab="capacitor-charge-energy">Capacitor Charge/Energy</button>
+            <button class="tab-button px-4 py-2 font-medium whitespace-nowrap" data-tab="capacitor-reactance">Capacitor Reactance</button>
+            <button class="tab-button px-4 py-2 font-medium whitespace-nowrap" data-tab="inductor-reactance">Inductor Reactance</button>
+            <button class="tab-button px-4 py-2 font-medium whitespace-nowrap" data-tab="inductor-energy">Inductor Energy</button>
+        </div>
+
+        <!-- Capacitor Charge/Energy Calculator -->
+        <div id="capacitor-charge-energy-calculator" class="calculator-tab">
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Capacitance (F)</label>
+                    <input type="number" id="capacitance" class="w-full p-2 border rounded" placeholder="e.g. 0.000001">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Voltage (V)</label>
+                    <input type="number" id="voltage" class="w-full p-2 border rounded" placeholder="e.g. 12">
+                </div>
+            </div>
+            <button onclick="calculateCapacitorChargeEnergy()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                Calculate
+            </button>
+            <div id="capacitor-charge-energy-results" class="mt-4 p-4 bg-gray-50 rounded"></div>
+        </div>
+
+        <!-- Capacitor Reactance Calculator -->
+        <div id="capacitor-reactance-calculator" class="calculator-tab hidden">
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Capacitance (F)</label>
+                    <input type="number" id="capacitance-reactance" class="w-full p-2 border rounded" placeholder="e.g. 0.000001">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Frequency (Hz)</label>
+                    <input type="number" id="frequency-reactance" class="w-full p-2 border rounded" placeholder="e.g. 1000">
+                </div>
+            </div>
+            <button onclick="calculateCapacitorReactance()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                Calculate
+            </button>
+            <div id="capacitor-reactance-results" class="mt-4 p-4 bg-gray-50 rounded"></div>
+        </div>
+
+        <!-- Inductor Reactance Calculator -->
+        <div id="inductor-reactance-calculator" class="calculator-tab hidden">
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Inductance (H)</label>
+                    <input type="number" id="inductance-reactance" class="w-full p-2 border rounded" placeholder="e.g. 0.001">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Frequency (Hz)</label>
+                    <input type="number" id="frequency-inductor-reactance" class="w-full p-2 border rounded" placeholder="e.g. 1000">
+                </div>
+            </div>
+            <button onclick="calculateInductorReactance()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                Calculate
+            </button>
+            <div id="inductor-reactance-results" class="mt-4 p-4 bg-gray-50 rounded"></div>
+        </div>
+
+        <!-- Inductor Energy Calculator -->
+        <div id="inductor-energy-calculator" class="calculator-tab hidden">
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Inductance (H)</label>
+                    <input type="number" id="inductance" class="w-full p-2 border rounded" placeholder="e.g. 0.001">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Current (A)</label>
+                    <input type="number" id="current" class="w-full p-2 border rounded" placeholder="e.g. 0.5">
+                </div>
+            </div>
+            <button onclick="calculateInductorEnergy()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                Calculate
+            </button>
+            <div id="inductor-energy-results" class="mt-4 p-4 bg-gray-50 rounded"></div>
+        </div>
+    </section>
+
     <!-- Scripts -->
     <script src="script.js"></script>
     <script>
@@ -113,6 +197,92 @@
             const mobileNav = document.getElementById('mobile-nav');
             mobileNav.classList.toggle('hidden');
         });
+
+        // Tab Switching
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                document.querySelectorAll('.calculator-tab').forEach(tab => tab.classList.add('hidden'));
+                document.getElementById(`${button.dataset.tab}-calculator`).classList.remove('hidden');
+            });
+        });
+
+        // Capacitor Charge/Energy Calculations
+        function calculateCapacitorChargeEnergy() {
+            const C = parseFloat(document.getElementById('capacitance').value);
+            const V = parseFloat(document.getElementById('voltage').value);
+            
+            if (isNaN(C) || isNaN(V)) {
+                alert("Please enter valid numbers for Capacitance and Voltage");
+                return;
+            }
+
+            const charge = C * V;
+            const energy = 0.5 * C * Math.pow(V, 2);
+            
+            document.getElementById('capacitor-charge-energy-results').innerHTML = `
+                <h3 class="font-medium mb-2">Results:</h3>
+                <p>Charge: ${charge.toExponential(4)} C</p>
+                <p>Energy: ${energy.toExponential(4)} J</p>
+            `;
+        }
+
+        // Capacitor Reactance Calculations
+        function calculateCapacitorReactance() {
+            const C = parseFloat(document.getElementById('capacitance-reactance').value);
+            const f = parseFloat(document.getElementById('frequency-reactance').value);
+            
+            if (isNaN(C) || isNaN(f)) {
+                alert("Please enter valid numbers for Capacitance and Frequency");
+                return;
+            }
+
+            const reactance = 1 / (2 * Math.PI * f * C);
+            
+            document.getElementById('capacitor-reactance-results').innerHTML = `
+                <h3 class="font-medium mb-2">Results:</h3>
+                <p>Reactance: ${reactance.toFixed(2)} Ω at ${f} Hz</p>
+            `;
+        }
+
+        // Inductor Reactance Calculations
+        function calculateInductorReactance() {
+            const L = parseFloat(document.getElementById('inductance-reactance').value);
+            const f = parseFloat(document.getElementById('frequency-inductor-reactance').value);
+            
+            if (isNaN(L) || isNaN(f)) {
+                alert("Please enter valid numbers for Inductance and Frequency");
+                return;
+            }
+
+            const reactance = 2 * Math.PI * f * L;
+            
+            document.getElementById('inductor-reactance-results').innerHTML = `
+                <h3 class="font-medium mb-2">Results:</h3>
+                <p>Reactance: ${reactance.toFixed(2)} Ω at ${f} Hz</p>
+            `;
+        }
+
+        // Inductor Energy Calculations
+        function calculateInductorEnergy() {
+            const L = parseFloat(document.getElementById('inductance').value);
+            const I = parseFloat(document.getElementById('current').value);
+            
+            if (isNaN(L) || isNaN(I)) {
+                alert("Please enter valid numbers for Inductance and Current");
+                return;
+            }
+
+            const energy = 0.5 * L * Math.pow(I, 2);
+            
+            document.getElementById('inductor-energy-results').innerHTML = `
+                <h3 class="font-medium mb-2">Results:</h3>
+                <p>Energy: ${energy.toExponential(4)} J</p>
+            `;
+        }
     </script>
 </body>
 </html>
+
