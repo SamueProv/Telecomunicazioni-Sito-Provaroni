@@ -53,20 +53,9 @@
             <div class="space-y-4">
                 <div class="form-control">
                     <label class="label">
-                        <span class="label-text">Seleziona tipo di codificatore:</span>
-                    </label>
-                    <select class="select select-bordered w-full max-w-md" id="encoderType">
-                        <option value="priority">Codificatore di Priorità</option>
-                        <option value="binary">Codificatore Binario</option>
-                        <option value="decimal">Codificatore Decimale-BCD</option>
-                    </select>
-                </div>
-
-                <div class="form-control">
-                    <label class="label">
                         <span class="label-text">Numero di linee di ingresso (2-16):</span>
                     </label>
-                    <input type="number" min="2" max="16" value="4" class="input input-bordered w-full max-w-md" id="inputLines">
+                    <input type="number" min="2" max="16" value="16" class="input input-bordered w-full max-w-md" id="inputLines">
                 </div>
 
                 <div class="flex gap-2">
@@ -83,6 +72,11 @@
                         <div id="encoderDiagram" class="p-4 bg-gray-100 rounded-lg font-mono"></div>
                     </div>
                 </div>
+
+                <div id="kmapContainer" class="mt-6 hidden">
+                    <h3 class="text-xl font-semibold mb-2">Mappe di Karnaugh:</h3>
+                    <div id="kmapOutput" class="grid grid-cols-2 gap-4"></div>
+                </div>
             </div>
         </section>
     </main>
@@ -96,20 +90,15 @@
 
     <script>
         function generateEncoder() {
-            const type = document.getElementById('encoderType').value;
             const lines = parseInt(document.getElementById('inputLines').value);
-            
-            // Generate truth table
+            const outputBits = Math.ceil(Math.log2(lines));
             let tableHTML = '<table class="table-auto border-collapse w-full"><thead><tr><th class="border p-2 bg-gray-100">Input</th>';
             
-            // Add output columns based on encoder type
-            const outputBits = Math.ceil(Math.log2(lines));
             for (let i = 0; i < outputBits; i++) {
                 tableHTML += `<th class="border p-2 bg-gray-100">B${i}</th>`;
             }
             tableHTML += '</tr></thead><tbody>';
             
-            // Generate rows
             for (let i = 0; i < lines; i++) {
                 tableHTML += `<tr><td class="border p-2">Linea ${i}</td>`;
                 const binary = i.toString(2).padStart(outputBits, '0');
@@ -121,23 +110,43 @@
             tableHTML += '</tbody></table>';
             
             document.getElementById('encoderTable').innerHTML = tableHTML;
-            
-            // Generate diagram
-            let diagramHTML = '';
-            if (type === 'priority') {
-                diagramHTML = `Codificatore di Priorità a ${lines} ingressi → ${outputBits} uscite`;
-            } else if (type === 'binary') {
-                diagramHTML = `Codificatore Binario a ${lines} ingressi → ${outputBits} uscite`;
-            } else {
-                diagramHTML = `Codificatore Decimale-BCD (${lines} ingressi)`;
-            }
-            
-            document.getElementById('encoderDiagram').innerHTML = diagramHTML;
             document.getElementById('encoderContainer').classList.remove('hidden');
+            generateKarnaughMaps(lines);
         }
         
         function clearEncoder() {
             document.getElementById('encoderTable').innerHTML = '';
+            document.getElementById('encoderDiagram').innerHTML = '';
+            document.getElementById('kmapOutput').innerHTML = '';
+            document.getElementById('encoderContainer').classList.add('hidden');
+            document.getElementById('kmapContainer').classList.add('hidden');
+            document.getElementById('inputLines').value = 4;
+        }
+
+        function generateKarnaughMaps(lines) {
+            const kmapOutput = document.getElementById('kmapOutput');
+            kmapOutput.innerHTML = ''; // Clear previous K-maps
+            const numMaps = Math.ceil(lines / 4); // 4 outputs per K-map
+
+            for (let i = 0; i < numMaps; i++) {
+                const kmap = document.createElement('table');
+                kmap.className = 'kmap-table border-collapse';
+                kmap.innerHTML = '<thead><tr><th colspan="4">K-map ' + (i + 1) + '</th></tr></thead><tbody>';
+                
+                for (let j = 0; j < 4; j++) {
+                    const row = document.createElement('tr');
+                    for (let k = 0; k < 4; k++) {
+                        const cell = document.createElement('td');
+                        const index = (i * 4) + (j * 4) + k;
+                        cell.innerText = index < lines ? `Cell ${index}` : ''; // Placeholder for K-map values
+                        row.appendChild(cell);
+                    }
+                    kmap.appendChild(row);
+                }
+                kmap.innerHTML += '</tbody>';
+                kmapOutput.appendChild(kmap);
+            }
+            document.getElementById('
             document.getElementById('encoderDiagram').innerHTML = '';
             document.getElementById('encoderContainer').classList.add('hidden');
             document.getElementById('inputLines').value = 4;
